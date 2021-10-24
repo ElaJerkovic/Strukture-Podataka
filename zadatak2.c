@@ -120,7 +120,8 @@ Position findBefore(Position head, char* lastName)
 int deleteElement(Position head, char* lastName)
 {
 	Position temp = head;
-	Position before = findBefore(temp, lastName);
+	Position before = NULL;
+	before = findBefore(temp, lastName);
 
 	if (before == NULL)
 	{
