@@ -139,7 +139,7 @@ int main(int argc, char** argv)
 {
 	Person head = { .next = NULL, .name = {0}, .lastName = {0}, .birthYear = 0 };
 	Position p = &head;
-	Position temp = 0;
+	Position temp = NULL;
 	char name1[] = "ime1";
 	char lastName1[] = "prezime1";
 	int birthYear1 = 1991;
