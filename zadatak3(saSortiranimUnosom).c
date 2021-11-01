@@ -54,7 +54,7 @@ int sortedInput(Position head, char* name, char* lastName, int birthYear)
 
 	insertAfter(head, newPerson);
 
-	return EXIT_SUCCESS;;
+	return EXIT_SUCCESS;
 }
 
 Position findLast(Position head)
