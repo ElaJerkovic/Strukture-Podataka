@@ -54,7 +54,7 @@ int sortedInput(Position head, char* name, char* lastName, int birthYear)
 
 	insertAfter(head, newPerson);
 
-	return 0;
+	return EXIT_SUCCESS;;
 }
 
 Position findLast(Position head)
@@ -224,7 +224,7 @@ int bubbleSort(Position head)
         last = current;
     }
 
-    return 0;
+    return <EXIT_SUCCESS;
 }
 
 int writeInFIle(Position first)
