@@ -11,6 +11,81 @@ typedef struct _Person {
 	Position next;
 }Person;
 
+int insertAfter(Position pos, Position newPerson);
+Position createPerson(char* name, char* lastName, int birthYear);;
+int sortedInput(Position head, char* name, char* lastName, int birthYear);
+Position findLast(Position head);
+int prependList(Position head, char* name, char* lastName, int birhYear);
+int appendList(Position head, char* name, char* lastName, int birthYear);	
+Position findByLastName(Position first, char* lastName);
+int printList(Position first);
+Position findBefore(Position head, char* lastName);	
+int deleteElement(Position head, char* lastName);
+int insertAfterElement(char* surname, Position first, char* name,
+                       char* lastName,int birthYear);
+int insertBeforeElement(char* surname, Position head, char* name,
+                       char* lastName,int birthYear);	
+int bubbleSort(Position head);	
+int writeInFIle(Position first);
+int readFIle(char* nameOfFile, Position head);
+	
+int main(int argc, char** argv)
+{
+	Person head = { .next = NULL, .name = {0}, .lastName = {0}, .birthYear = 0 };
+	Position p = &head;
+	Position temp = NULL;
+	char name1[] = "name1";
+	char lastName1[] = "F_lastName1";
+	int birthYear1 = 1991;
+	char name2[] = "name2";
+	char lastName2[] = "A_lastName2";
+	int birthYear2 = 1992;
+	char name3[] = "name3";
+	char lastName3[] = "B_lastName3";
+	int birthYear3 = 1993;
+    char name4[] = "name4";
+	char lastName4[] = "Z_lastName4";
+	int birthYear4 = 1994;
+	char name5[] = "name5";
+	char lastName5[] = "E_lastName5";
+	int birthYear5 = 1995;
+
+	printf("Sorted input: \n");
+    sortedInput(p, name4, lastName4, birthYear4);
+    sortedInput(p, name2, lastName2, birthYear2);
+    sortedInput(p, name3, lastName3, birthYear3);
+    sortedInput(p, name1, lastName1, birthYear1);
+    printList(p->next);
+    printf("\n");
+
+    printf("Adding element to beggining and end of list:\n ");
+    prependList(p, name5, lastName5, birthYear5);
+    appendList(p, name5, lastName5, birthYear5);
+    printList(p->next);
+    printf("\n");
+
+    printf("New sorted list:\n");
+    bubbleSort(p);
+    printList(p->next);
+    printf("\n");
+
+    printf("Finding element by last name (Z_lastName4):\n");
+    temp = findByLastName(p->next, lastName4);
+    printList(temp);
+    printf("\n");
+
+    printf("Deleting element from list (B_lastName3): \n");
+    deleteElement(p, lastName3);
+    printList(p->next);
+    printf("\n");
+
+    printf("Writing list to file and reading list from file:\n");
+    writeInFIle(p->next);
+    readFIle("datoteka2.txt", p);
+    printList(p->next);
+
+	return EXIT_SUCCESS;
+}
 
 
 int insertAfter(Position pos, Position newPerson)
@@ -282,60 +357,3 @@ int readFIle(char* nameOfFile, Position head)
     return EXIT_SUCCESS;
 }
 
-int main(int argc, char** argv)
-{
-	Person head = { .next = NULL, .name = {0}, .lastName = {0}, .birthYear = 0 };
-	Position p = &head;
-	Position temp = NULL;
-	char name1[] = "name1";
-	char lastName1[] = "F_lastName1";
-	int birthYear1 = 1991;
-	char name2[] = "name2";
-	char lastName2[] = "A_lastName2";
-	int birthYear2 = 1992;
-	char name3[] = "name3";
-	char lastName3[] = "B_lastName3";
-	int birthYear3 = 1993;
-    char name4[] = "name4";
-	char lastName4[] = "Z_lastName4";
-	int birthYear4 = 1994;
-	char name5[] = "name5";
-	char lastName5[] = "E_lastName5";
-	int birthYear5 = 1995;
-
-	printf("Sorted input: \n");
-    sortedInput(p, name4, lastName4, birthYear4);
-    sortedInput(p, name2, lastName2, birthYear2);
-    sortedInput(p, name3, lastName3, birthYear3);
-    sortedInput(p, name1, lastName1, birthYear1);
-    printList(p->next);
-    printf("\n");
-
-    printf("Adding element to beggining and end of list:\n ");
-    prependList(p, name5, lastName5, birthYear5);
-    appendList(p, name5, lastName5, birthYear5);
-    printList(p->next);
-    printf("\n");
-
-    printf("New sorted list:\n");
-    bubbleSort(p);
-    printList(p->next);
-    printf("\n");
-
-    printf("Finding element by last name (Z_lastName4):\n");
-    temp = findByLastName(p->next, lastName4);
-    printList(temp);
-    printf("\n");
-
-    printf("Deleting element from list (B_lastName3): \n");
-    deleteElement(p, lastName3);
-    printList(p->next);
-    printf("\n");
-
-    printf("Writing list to file and reading list from file:\n");
-    writeInFIle(p->next);
-    readFIle("datoteka2.txt", p);
-    printList(p->next);
-
-	return EXIT_SUCCESS;
-}
