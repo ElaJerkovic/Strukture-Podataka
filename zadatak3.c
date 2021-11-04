@@ -11,6 +11,70 @@ typedef struct _Person {
 	Position next;
 }Person;
 
+int insertAfter(Position pos, Position newPerson);
+Position createPerson(char* name, char* lastName, int birthYear);;
+Position findLast(Position head);
+int prependList(Position head, char* name, char* lastName, int birhYear);
+int appendList(Position head, char* name, char* lastName, int birthYear);	
+Position findByLastName(Position first, char* lastName);
+int printList(Position first);
+Position findBefore(Position head, char* lastName);	
+int deleteElement(Position head, char* lastName);
+int insertAfterElement(char* surname, Position first, char* name,
+                       char* lastName,int birthYear);
+int insertBeforeElement(char* surname, Position head, char* name,
+                       char* lastName,int birthYear);	
+int bubbleSort(Position head);	
+int writeInFIle(Position first);
+int readFIle(char* nameOfFile, Position head);
+
+int main(int argc, char** argv)
+{
+	  Person head = { .next = NULL, .name = {0}, .lastName = {0}, .birthYear = 0 };
+	  Position p = &head;
+	  Position temp = NULL;
+	  char name1[] = "ime1";
+	  char lastName1[] = "F_prezime1";
+	  int birthYear1 = 1991;
+	  char name2[] = "ime2";
+	  char lastName2[] = "A_prezime2";
+  	int birthYear2 = 1992;
+  	char name3[] = "ime3";
+  	char lastName3[] = "B_prezime3";
+	  int birthYear3 = 1993;
+    char name4[] = "ime4";
+	  char lastName4[] = "Z_prezime4";
+  	int birthYear4 = 1994;
+	  char name5[] = "ime5";
+	  char lastName5[] = "E_prezime5";
+	  int birthYear5 = 1995;
+
+    prependList(p, name1, lastName1, birthYear1);
+    appendList(p, name2, lastName2, birthYear2);
+	  insertAfterElement(lastName1,p , name3, lastName3, birthYear3);
+	  insertAfterElement(lastName2,p , name4, lastName4, birthYear4);
+	  insertBeforeElement(lastName3, p, name5, lastName5, birthYear5);
+    printList(p->next);
+    printf("\n");
+  
+    bubbleSort(p);
+    printList(p->next);
+    printf("\n");
+
+    temp = findByLastName(p->next, lastName4);
+    printList(temp);
+    printf("\n");
+
+    deleteElement(p, lastName3);
+    printList(p->next);
+    printf("\n");
+
+    writeInFIle(p->next);
+    readFIle("datoteka2.txt");
+
+	  return EXIT_SUCCESS;
+}
+
 int insertAfter(Position pos, Position newPerson)
 {
 	newPerson->next = pos->next;
@@ -260,49 +324,4 @@ int readFIle(char* nameOfFile)
     return EXIT_SUCCESS;
 }
 
-int main(int argc, char** argv)
-{
-	  Person head = { .next = NULL, .name = {0}, .lastName = {0}, .birthYear = 0 };
-	  Position p = &head;
-	  Position temp = NULL;
-	  char name1[] = "ime1";
-	  char lastName1[] = "F_prezime1";
-	  int birthYear1 = 1991;
-	  char name2[] = "ime2";
-	  char lastName2[] = "A_prezime2";
-  	int birthYear2 = 1992;
-  	char name3[] = "ime3";
-  	char lastName3[] = "B_prezime3";
-	  int birthYear3 = 1993;
-    char name4[] = "ime4";
-	  char lastName4[] = "Z_prezime4";
-  	int birthYear4 = 1994;
-	  char name5[] = "ime5";
-	  char lastName5[] = "E_prezime5";
-	  int birthYear5 = 1995;
 
-    prependList(p, name1, lastName1, birthYear1);
-    appendList(p, name2, lastName2, birthYear2);
-	  insertAfterElement(lastName1,p , name3, lastName3, birthYear3);
-	  insertAfterElement(lastName2,p , name4, lastName4, birthYear4);
-	  insertBeforeElement(lastName3, p, name5, lastName5, birthYear5);
-    printList(p->next);
-    printf("\n");
-  
-    bubbleSort(p);
-    printList(p->next);
-    printf("\n");
-
-    temp = findByLastName(p->next, lastName4);
-    printList(temp);
-    printf("\n");
-
-    deleteElement(p, lastName3);
-    printList(p->next);
-    printf("\n");
-
-    writeInFIle(p->next);
-    readFIle("datoteka2.txt");
-
-	  return EXIT_SUCCESS;
-}
