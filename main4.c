@@ -14,12 +14,12 @@ typedef struct _Polynomial{
     Position next;
 } Polynomial;
 
-int ReadFile(char*, Position one, Position two);
-int SortedAdd(Position head, int coef, int expo);
-Position insert(Position head,int co,int ex);
-int multy(Position one, Position two, Position result);
-Position CreateElement(int coefficient, int exponent);
-int addition(Position head1, Position head2);
+int ReadFile(char*, Position, Position);
+int SortedAdd(Position, int, int );
+Position insert(Position, int ,int);
+int multy(Position, Position, Position);
+Position CreateElement(int, int);
+int addition(Position, Position);
 
 int main(){
 
