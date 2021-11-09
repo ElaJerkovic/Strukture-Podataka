@@ -27,9 +27,11 @@ int main(){
     Polynomial head2 = {.coef = 0, .expo = 0, .next = NULL};
     Polynomial add = {.coef = 0, .expo = 0, .next = NULL};
     Polynomial mul = {.coef = 0, .expo = 0, .next = NULL};
-    FILE *f = NULL;
-
-    ReadFile("pol.txt", &head1, &head2);
+    char file[50] = { 0 };
+    printf("enter name of file: ");
+    scanf(" %s", file);
+	
+    ReadFile(file, &head1, &head2);
 
     printf("First polynomial:\n");
     print(&head1);
