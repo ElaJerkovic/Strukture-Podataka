@@ -27,6 +27,7 @@ int main(){
     Polynomial head2 = {.coef = 0, .expo = 0, .next = NULL};
     Polynomial add = {.coef = 0, .expo = 0, .next = NULL};
     Polynomial mul = {.coef = 0, .expo = 0, .next = NULL};
+    FILE *f = NULL;
 
     ReadFile("pol.txt", &head1, &head2);
 
@@ -110,7 +111,7 @@ int SortedAdd(Position head, int coef, int expo){
 
     Position temp = NULL;
     Position prev = NULL;
-    Position new = NULL;
+    Position newP = NULL;
 
     temp = head->next;
     prev = head;
@@ -119,10 +120,10 @@ int SortedAdd(Position head, int coef, int expo){
         prev = temp;
         temp = temp->next;
     }
-    new = CreateElement(coef, expo);
+    newP = CreateElement(coef, expo);
 
-    new->next = prev->next;
-    prev->next = new;
+    newP->next = prev->next;
+    prev->next = newP;
 
     return EXIT_SUCCESS;
 }
