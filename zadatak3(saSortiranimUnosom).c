@@ -1,6 +1,8 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#define MAX_LINE (1024)
 
 struct _Person;
 typedef struct _Person* Position;
@@ -16,73 +18,110 @@ Position createPerson(char* name, char* lastName, int birthYear);;
 int sortedInput(Position head, char* name, char* lastName, int birthYear);
 Position findLast(Position head);
 int prependList(Position head, char* name, char* lastName, int birhYear);
-int appendList(Position head, char* name, char* lastName, int birthYear);	
+int appendList(Position head, char* name, char* lastName, int birthYear);
 Position findByLastName(Position first, char* lastName);
 int printList(Position first);
-Position findBefore(Position head, char* lastName);	
+Position findBefore(Position head, char* lastName);
 int deleteElement(Position head, char* lastName);
 int insertAfterElement(char* surname, Position first, char* name,
                        char* lastName,int birthYear);
 int insertBeforeElement(char* surname, Position head, char* name,
-                       char* lastName,int birthYear);	
-int bubbleSort(Position head);	
+                       char* lastName,int birthYear);
+int bubbleSort(Position head);
 int writeInFIle(Position first);
 int readFIle(char* nameOfFile, Position head);
-	
+Position findByLastName(Position first, char* lastName);
+
 int main(int argc, char** argv)
 {
 	Person head = { .next = NULL, .name = {0}, .lastName = {0}, .birthYear = 0 };
-	Position p = &head;
-	Position temp = NULL;
-	char name1[] = "name1";
-	char lastName1[] = "F_lastName1";
-	int birthYear1 = 1991;
-	char name2[] = "name2";
-	char lastName2[] = "A_lastName2";
-	int birthYear2 = 1992;
-	char name3[] = "name3";
-	char lastName3[] = "B_lastName3";
-	int birthYear3 = 1993;
-    char name4[] = "name4";
-	char lastName4[] = "Z_lastName4";
-	int birthYear4 = 1994;
-	char name5[] = "name5";
-	char lastName5[] = "E_lastName5";
-	int birthYear5 = 1995;
-
-	printf("Sorted input: \n");
-    sortedInput(p, name4, lastName4, birthYear4);
-    sortedInput(p, name2, lastName2, birthYear2);
-    sortedInput(p, name3, lastName3, birthYear3);
-    sortedInput(p, name1, lastName1, birthYear1);
-    printList(p->next);
-    printf("\n");
-
-    printf("Adding element to beggining and end of list:\n ");
-    prependList(p, name5, lastName5, birthYear5);
-    appendList(p, name5, lastName5, birthYear5);
-    printList(p->next);
-    printf("\n");
-
-    printf("New sorted list:\n");
-    bubbleSort(p);
-    printList(p->next);
-    printf("\n");
-
-    printf("Finding element by last name (Z_lastName4):\n");
-    temp = findByLastName(p->next, lastName4);
-    printList(temp);
-    printf("\n");
-
-    printf("Deleting element from list (B_lastName3): \n");
-    deleteElement(p, lastName3);
-    printList(p->next);
-    printf("\n");
-
-    printf("Writing list to file and reading list from file:\n");
-    writeInFIle(p->next);
-    readFIle("datoteka2.txt", p);
-    printList(p->next);
+	char izbor;
+	char ime[MAX_LINE] = { 0 };
+    char prezime[MAX_LINE] = { 0 };
+    char lastN[MAX_LINE] = { 0 };
+	int godina = 0;
+	while(1){
+		printf("Unesi:\nP za unos na pocetak\nK za unos na kraj\nI za ispis\n"
+         "F za trazi po prezimenu\nA za unos iza\nB za unos ispred\nU za unos liste u datoteku\n"
+         "C za citaj listu iz datoteke\nS za sortiraj po prezimenu\nZ za sortirani unos\nD brisi\nX za izlaz\n");
+		scanf(" %c", &izbor);
+		if (izbor == 'P'){
+            printf("Ime: ");
+            scanf(" %s", ime);
+            printf("Prezime: ");
+            scanf(" %s", prezime);
+            printf("Godina rodenja: ");
+            scanf(" %d", &godina);
+            prependList(&head, ime, prezime, godina);
+		}
+		else if (izbor == 'I'){
+            printList(head.next);
+		}
+		else if (izbor == 'K'){
+            printf("Ime: ");
+            scanf(" %s", ime);
+            printf("Prezime: ");
+            scanf(" %s", prezime);
+            printf("Godina rodenja: ");
+            scanf(" %d", &godina);
+            appendList(&head, ime, prezime, godina);
+		}
+        else if (izbor == 'F'){
+            printf("Prezime osobe koju zelite pronaci: ");
+            scanf(" %s", lastN);
+            findByLastName(head.next, lastN);
+		}
+		else if (izbor == 'D'){
+		    printf("Prezime osobe koju zelite obrisati: ");
+            scanf(" %s", lastN);
+            deleteElement(&head, lastN);
+		}
+		else if (izbor == 'Z'){
+            printf("Ime: ");
+            scanf(" %s", ime);
+            printf("Prezime: ");
+            scanf(" %s", prezime);
+            printf("Godina rodenja: ");
+            scanf(" %d", &godina);
+            sortedInput(&head, ime, prezime, godina);
+		}
+		else if (izbor == 'A'){
+		    printf("Prezime osobe iza koje zelite dodati: ");
+            scanf(" %s", lastN);
+            printf("Ime: ");
+            scanf(" %s", ime);
+            printf("Prezime: ");
+            scanf(" %s", prezime);
+            printf("Godina rodenja: ");
+            scanf(" %d", &godina);
+            insertAfterElement(lastN, &head, ime, prezime, godina);
+		}
+		else if (izbor == 'B'){
+            printf("Prezime osobe iza koje zelite dodati: ");
+            scanf(" %s", lastN);
+            printf("Ime: ");
+            scanf(" %s", ime);
+            printf("Prezime: ");
+            scanf(" %s", prezime);
+            printf("Godina rodenja: ");
+            scanf(" %d", &godina);
+            insertBeforeElement(lastN, &head, ime, prezime, godina);
+		}
+		else if (izbor == 'S'){
+            bubbleSort(&head);
+		}
+		else if (izbor == 'U'){
+            writeInFIle(head.next);
+		}
+		else if (izbor == 'C'){
+            readFIle("datoteka.txt", &head);
+		}
+		else if (izbor == 'X'){
+            break;
+		}
+		else
+			printf("Greska! Niste unijeli dobro slovo!\n");
+	}
 
 	return EXIT_SUCCESS;
 }
@@ -103,7 +142,7 @@ Position createPerson(char* name, char* lastName, int birthYear)
 	newPerson = (Position)malloc(sizeof(Person));
 	if (!newPerson) {
 		perror("Can't allocate memory! \n");
-		return -1;
+		return NULL;
 	}
 
 	strcpy(newPerson->name, name);
@@ -153,7 +192,7 @@ int prependList(Position head, char* name, char* lastName, int birhYear)
 	}
 	insertAfter(head, newPerson);
 
-	return EXIT_SUCCESS;
+	return 0;
 }
 
 int appendList(Position head, char* name, char* lastName, int birthYear)
@@ -192,8 +231,7 @@ int printList(Position first)
 
 	while(temp)
 	{
-	    printf("Name: %s, Last name: %s, Birth year: %d \n",
-             temp->name, temp->lastName, temp->birthYear);
+	    printf("Name: %s, Last name: %s, Birth year: %d \n",temp->name, temp->lastName, temp->birthYear);
 	    temp=temp->next;
 	}
 
@@ -299,7 +337,7 @@ int bubbleSort(Position head)
         last = current;
     }
 
-    return <EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
 
 int writeInFIle(Position first)
@@ -356,4 +394,3 @@ int readFIle(char* nameOfFile, Position head)
 
     return EXIT_SUCCESS;
 }
-
