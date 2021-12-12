@@ -36,54 +36,54 @@ int main()
 	system("cls");
 
 	do{
-        printf("\nChoose your option: \n1) add new element\n"
-        "2) delete element\n"
-        "3) inorder\n"
-        "4) preorder\n"
-        "5) postorder\n"
-        "6) level order\n"
-        "7) find element\n"
-        "8) stop\n");
+        	printf("\nChoose your option: \n1) add new element\n"
+        	"2) delete element\n"
+        	"3) inorder\n"
+        	"4) preorder\n"
+        	"5) postorder\n"
+        	"6) level order\n"
+        	"7) find element\n"
+        	"8) stop\n");
 
-        scanf("%d", &choice);
-        system("cls");
+        	scanf("%d", &choice);
+        	system("cls");
 
-        switch (choice)
-		{
-		case 1:
-			printf("Enter number you want to insert: \n");
-			scanf("%d", &element);
-			root = addElement(element, root);
-			break;
-		case 2:
-		    printf("Enter number you want to delete:\n");
-			scanf("%d", &element);
-			root = DeleteElement(element, root);
-			break;
-		case 3:
-		    inorderPrint(root);
-			break;
-		case 4:
-			preorderPrint(root);
-			break;
-		case 5:
-		    postorderPrint(root);
-			break;
-		case 6:
-			printLevelOrder(root);
-			break;
-		case 7:
-			printf("Enter number you are searching for:\n");
-			scanf("%d", &element);
-			temp = findElement(element, root);
-			if (temp)
-				printf("Element %d is on adress %d\n", temp->element, temp);
-			break;
-        case 8:
-			break;
-		default:
-			printf("Wrong input!\n");
-		}
+       	 	switch (choice)
+			{
+			case 1:
+				printf("Enter number you want to insert: \n");
+				scanf("%d", &element);
+				root = addElement(element, root);
+				break;
+			case 2:
+		    		printf("Enter number you want to delete:\n");
+				scanf("%d", &element);
+				root = DeleteElement(element, root);
+				break;
+			case 3:
+		    		inorderPrint(root);
+				break;
+			case 4:
+				preorderPrint(root);
+				break;
+			case 5:
+		    		postorderPrint(root);
+				break;
+			case 6:
+				printLevelOrder(root);
+				break;
+			case 7:
+				printf("Enter number you are searching for:\n");
+				scanf("%d", &element);
+				temp = findElement(element, root);
+				if (temp)
+					printf("Element %d is on adress %d\n", temp->element, temp);
+				break;
+        		case 8:
+				break;
+			default:
+				printf("Wrong input!\n");
+			}
 
 	}while(choice != 8);
 
@@ -200,7 +200,7 @@ Position findElement(int element, Position root)
 	if (!root)
 		return root;
 
-    else if (element > root->element)
+    	else if (element > root->element)
 		return findElement(element, root->Right);
 
 	else if (element < root->element)
