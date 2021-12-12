@@ -30,8 +30,8 @@ int main()
 
 	printf("Enter 5 numbers: \n");
 	for(i = 0; i < 5; i++){
-        scanf("%d", &element);
-        root = addElement(element, root);
+        	scanf("%d", &element);
+        	root = addElement(element, root);
 	}
 	system("cls");
 
