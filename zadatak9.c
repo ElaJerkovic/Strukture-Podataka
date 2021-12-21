@@ -24,9 +24,11 @@ Position addElement(int elem, Position root);
 int Insert(Position root);
 int inorderPrint(Position root, listPointer);
 int replace(Position root);
-listPointer converTreeToList(Position root);
-int fileName(char* file_name);
+listPointer createElement(int element);
 int writeListToFile(listPointer head, char* nameOfFile);
+listPointer findLast(listPointer head);
+int insertAfter(listPointer pos, listPointer newElement);
+int appendList(listPointer head, int element);
 
 int main()
 {
