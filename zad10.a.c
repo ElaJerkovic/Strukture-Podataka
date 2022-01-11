@@ -38,10 +38,10 @@ position pronadiGrad(position current, int number);
 int main()
 {
   	cvor head = { .ime = { 0 },.root = NULL,.next = NULL };
-	  position2 p = &head;
-	  char ime[MAX_SIZE] = { 0 };
-	  int number;
-	  readFile("drzave.txt", p);
+	position2 p = &head;
+	char ime[MAX_SIZE] = { 0 };
+	int number;
+	readFile("drzave.txt", p);
 
 
   	printf("Unesite drzavu i broj stanovnika u toj drzavi: ");
@@ -51,7 +51,7 @@ int main()
   	printf("Broj stanovnika: ");
   	scanf("%d", &number);
 
-	  pronadiDrzavu(p, ime, number);
+	pronadiDrzavu(p, ime, number);
   
   	return 0;
 }
@@ -64,12 +64,12 @@ int pronadiDrzavu(position2 head, char* country, int number)
 
 	  if (temp)
 	  {
-       printf("%s- gradovi koji imaju vecu populaciju od %d: \n", country, number);
-		   temp->root = pronadiGrad(temp->root, number);
+      		  printf("%s- gradovi koji imaju vecu populaciju od %d: \n", country, number);
+		  temp->root = pronadiGrad(temp->root, number);
 	}
 
 	  else
-		    printf("Nema te drzave u datoteci!\n");
+		   printf("Nema te drzave u datoteci!\n");
 
 	  return 0;
 }
@@ -78,14 +78,13 @@ position pronadiGrad(position current, int number)
 	  if (current == NULL)
 		    return NULL;
 
-    else if (current->population >= number)
-   	{
+   	  else if (current->population >= number){
 		    current->left = pronadiGrad(current->left, number);
 		    printf("Ime:%s  Broj stanovnika: %d\n", current->name, current->population);
 		    current->right = pronadiGrad(current->right, number);
 	  }
 
-	else if (current->population < number)
+	 else if (current->population < number)
 		    current->right = pronadiGrad(current->right, number);
 
 	return current;
@@ -94,8 +93,8 @@ position pronadiGrad(position current, int number)
 int readFile(char* name, position2 head)
 {
   	char buffer[MAX_LINE] = { 0 };
-	  char ime[MAX_LINE] = { 0 };
-	  FILE* fp = NULL;
+	char ime[MAX_LINE] = { 0 };
+	FILE* fp = NULL;
 
   	fp = fopen(name, "r");
   	if (!fp)
@@ -116,12 +115,12 @@ int readFile(char* name, position2 head)
 
 	    	fgets(buffer, MAX_SIZE, fp);
 
-		    if (sscanf(buffer, " %s %s", newEl->ime, ime) == 2)
+		if (sscanf(buffer, " %s %s", newEl->ime, ime) == 2)
 	    	{
 		       	newEl->root = NULL;
 			      newEl->root = readFileForTree(ime, newEl->root);
 		      	insertSorted(newEl, head);
-		    }
+		 }
    	}
   	fclose(fp);
   	return 0;
@@ -131,20 +130,20 @@ position readFileForTree(char* name, position root)
 {
 	  char buffer[MAX_LINE] = { 0 };
 	  FILE* pfile = NULL;
-  	pfile = fopen(name, "r");
+  	  pfile = fopen(name, "r");
 	  if (!pfile)
 	  {
 		     printf("Nemoguce otvaranje datoteke!\n");
 		     return NULL;
 	  }
 
-  	while (!feof(pfile))
+  	  while (!feof(pfile))
 	  {
 		    int number;
 		    char country[MAX_SIZE] = { 0 };
 		    position newEl = NULL;
 
-	    	fgets(buffer, MAX_SIZE, pfile);
+	    	    fgets(buffer, MAX_SIZE, pfile);
 		    if (sscanf(buffer, " %s %d", country, &number) == 2)
 		    {
 			       newEl = createNewTreeElement(country, number);
@@ -162,7 +161,7 @@ int insertSorted(position2 newEl, position2 head)
 	    while (temp->next != NULL && strcmp(temp->next->ime, newEl->ime) < 0)
 		  temp = temp->next;
 
-    	insertAfter(temp, newEl);
+    	    insertAfter(temp, newEl);
 
 	    return 0;
 }
@@ -197,11 +196,11 @@ position insertToTree(position newEl, position current)
 	    if (current == NULL)
 		       return newEl;
 
-      else if (current->population < newEl->population)
+            else if (current->population < newEl->population)
 		      current->right = insertToTree(newEl, current->right);
 
 	    else if (current->population > newEl->population)
-          current->left = insertToTree(newEl, current->left);
+            current->left = insertToTree(newEl, current->left);
 
 	    else
 	    {
@@ -211,41 +210,41 @@ position insertToTree(position newEl, position current)
 		       else if (strcmp(current->name, newEl->name) > 0)
 			          current->left = insertToTree(newEl, current->left);
 
-           else
+            else
 			          free(newEl);
 	     }
   
-	     return current;
+	    return current;
 }
 
 position createNewTreeElement(char* name, int number)
 {
-	    position newEl = NULL;
+	 position newEl = NULL;
 
-	    newEl = (position)malloc(sizeof(stablo));
+	 newEl = (position)malloc(sizeof(stablo));
 	      
-      if (!newEl)
+      	if (!newEl)
     	{
-		      perror("Neuspjela alokacija!\n");
-		      return NULL;
-	    }
+		  perror("Neuspjela alokacija!\n");
+		  return NULL;
+	  }
 
     	strcpy(newEl->name, name);
     	newEl->population = number;
-	    newEl->left = NULL;
-	    newEl->right = NULL;
+	newEl->left = NULL;
+	newEl->right = NULL;
 
-	    return newEl;
+	return newEl;
 }
 
 int printTree(position current)
 {
-	    if (NULL == current)
-		      return 0;
+	 if (NULL == current)
+		    return 0;
 
-	    printTree(current->left);
-	    printf("%s %d\n", current->name, current->population);
-	    printTree(current->right);
+	 printTree(current->left);
+	 printf("%s %d\n", current->name, current->population);
+	 printTree(current->right);
 
-	    return 0;
+	 return 0;
 }
