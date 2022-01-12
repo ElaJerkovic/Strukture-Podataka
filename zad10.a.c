@@ -24,7 +24,7 @@ typedef struct _cvor
   	position2 next;
 }cvor;
 
-int pronadiDrzavu(position2 head, char* country, int number);
+int countryFind(position2 head, char* country, int number);
 int readFile(char* name, position2 head);
 int insertSorted(position2 newEl, position2 head);
 int insertAfter(position2 before, position2 newEl);
@@ -33,7 +33,7 @@ position readFileForTree(char* name, position root);
 position insertToTree(position newEl, position current);
 position createNewTreeElement(char* name, int number);
 int printTree(position current);
-position pronadiGrad(position current, int number);
+position cityFind(position current, int number);
 
 int main()
 {
@@ -54,40 +54,6 @@ int main()
 	pronadiDrzavu(p, ime, number);
   
   	return 0;
-}
-int pronadiDrzavu(position2 head, char* country, int number)
-{
-	  position2 temp = head->next;
-
-	  while (temp != NULL && strcmp(country, temp->ime) != 0)
-	  	  temp = temp->next;
-
-	  if (temp)
-	  {
-      		  printf("%s- gradovi koji imaju vecu populaciju od %d: \n", country, number);
-		  temp->root = pronadiGrad(temp->root, number);
-	}
-
-	  else
-		   printf("Nema te drzave u datoteci!\n");
-
-	  return 0;
-}
-position pronadiGrad(position current, int number)
-{
-	  if (current == NULL)
-		    return NULL;
-
-   	  else if (current->population >= number){
-		    current->left = pronadiGrad(current->left, number);
-		    printf("Ime:%s  Broj stanovnika: %d\n", current->name, current->population);
-		    current->right = pronadiGrad(current->right, number);
-	  }
-
-	 else if (current->population < number)
-		    current->right = pronadiGrad(current->right, number);
-
-	return current;
 }
 
 int readFile(char* name, position2 head)
@@ -247,4 +213,38 @@ int printTree(position current)
 	 printTree(current->right);
 
 	 return 0;
+}
+int countryFind(position2 head, char* country, int number)
+{
+	  position2 temp = head->next;
+
+	  while (temp != NULL && strcmp(country, temp->ime) != 0)
+	  	  temp = temp->next;
+
+	  if (temp)
+	  {
+      		  printf("Gradovi koji imaju vecu populaciju: \n");
+		  temp->root = cityFind(temp->root, number);
+	}
+
+	  else
+		   printf("Drzava ne postoji u datoteci!\n");
+
+	  return 0;
+}
+position cityFind(position current, int number)
+{
+	  if (current == NULL)
+		    return NULL;
+
+   	  else if (current->population >= number){
+		    current->left = cityFind(current->left, number);
+		    printf("Ime:%s  Broj stanovnika: %d\n", current->name, current->population);
+		    current->right = cityFind(current->right, number);
+	  }
+
+	 else if (current->population < number)
+		    current->right = cityFind(current->right, number);
+
+	return current;
 }
