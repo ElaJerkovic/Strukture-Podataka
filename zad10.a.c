@@ -51,7 +51,7 @@ int main()
   	printf("Broj stanovnika: ");
   	scanf("%d", &number);
 
-	pronadiDrzavu(p, ime, number);
+	countryFind(p, ime, number);
   
   	return 0;
 }
